@@ -1,0 +1,335 @@
+{
+  "Software Engineer": {
+    "questions": [
+      {
+        "phase": "Data Structures & Core Concepts",
+        "question": "What is the difference between a stack and a queue? Give real-life examples.",
+        "probe": "How would you implement a queue using two stacks, and what is the amortized time complexity of the enqueue and dequeue operations?",
+        "criteria": "LIFO vs FIFO distinction, push/pop vs enqueue/dequeue operations, real-world examples (call stack vs print spooler/queue), and time complexity.",
+        "ideal_answer": "A stack is a LIFO (Last In First Out) data structure, while a queue is a FIFO (First In First Out) data structure. For example, a stack can be used in function call management (like the call stack) or browser history undo/redo, and a queue can be used in print spooling, web server request processing, or waiting lines."
+      },
+      {
+        "phase": "Algorithms & Optimization",
+        "question": "Suppose you need to search for an item in a sorted list of 1,000,000 elements. Compare linear search with binary search in terms of time complexity and implementation.",
+        "probe": "What are the prerequisites for binary search, and how do you prevent integer overflow when calculating the mid index?",
+        "criteria": "O(n) vs O(log n) analysis, requirement for sorted order, and edge-case handling.",
+        "ideal_answer": "Linear search scans each element sequentially with O(n) complexity. Binary search divides the search interval in half each step, achieving O(log n) time (around 20 operations for 1M items). The prerequisite is sorted data. Mid calculation should use mid = low + (high - low) // 2 to avoid overflow."
+      },
+      {
+        "phase": "System Architecture & APIs",
+        "question": "How do you design a scalable RESTful API with proper HTTP status codes, versioning, error handling, and rate limiting?",
+        "probe": "What is the difference between 401 Unauthorized and 403 Forbidden, and how does idempotency apply to PUT vs POST?",
+        "criteria": "REST principles, idempotent methods (GET/PUT/DELETE vs POST), status code semantics, API versioning strategies, and token bucket rate limiting.",
+        "ideal_answer": "A well-designed REST API uses standard noun-based endpoints (e.g. /api/v1/orders), correct HTTP verbs (POST create, PUT replace, PATCH partial, DELETE remove), and clear status codes (200 OK, 201 Created, 400 Bad Request, 401 Unauthenticated, 403 Unauthorized, 429 Rate Limited). Idempotency ensures duplicate requests don't cause duplicate state changes."
+      },
+      {
+        "phase": "Concurrency & Memory",
+        "question": "What is the difference between a process and a thread? How do you prevent deadlocks and race conditions in a multi-threaded application?",
+        "probe": "What are the four necessary Coffman conditions for a deadlock to occur, and how do you break one of them?",
+        "criteria": "Process vs thread memory spaces, synchronization primitives (mutex, semaphore), race conditions, and deadlock prevention.",
+        "ideal_answer": "A process has its own dedicated memory space, while threads within a process share memory. Race conditions happen when multiple threads access shared mutable state without synchronization. Deadlocks require mutual exclusion, hold and wait, no preemption, and circular wait. We prevent them using lock hierarchies, timeouts, or immutable state."
+      },
+      {
+        "phase": "Production Engineering & CI/CD",
+        "question": "Can you describe your ideal CI/CD pipeline from git commit to production deployment, including testing, security scanning, and rollback strategy?",
+        "probe": "How do you implement blue-green or canary deployments to achieve zero-downtime releases?",
+        "criteria": "Automated linting/unit/integration tests, container builds, SAST security scans, canary rollout, health checks, and instant rollback.",
+        "ideal_answer": "A robust CI/CD pipeline runs automated linters and unit tests on PR creation, followed by integration tests and security vulnerability scans. On merge, it builds immutable container images, deploys to staging for synthetic verification, and rolls out to production via canary or blue-green deployment with automated metrics rollback if error rates spike."
+      }
+    ]
+  },
+  "Full-Stack Software Engineer": {
+    "questions": [
+      {
+        "phase": "Architecture & State",
+        "question": "Can you walk me through the architecture of a full-stack application you've built recently? How did you design the boundary between the frontend state and the backend API?",
+        "probe": "How did you manage optimistic UI updates and handle network failure or state rollbacks?",
+        "criteria": "Look for clear separation of concerns, API contract design, error resilience, and state management choices."
+      },
+      {
+        "phase": "Database & Query Optimization",
+        "question": "Suppose your application's dashboard experiences a 5x spike in traffic, causing high database CPU and slow queries. What is your systematic debugging and optimization strategy?",
+        "probe": "What are the trade-offs between adding read replicas versus an in-memory Redis cache with cache invalidation?",
+        "criteria": "Systematic observability, query profiling (EXPLAIN ANALYZE), indexing, caching strategies, and race condition awareness."
+      },
+      {
+        "phase": "Security & Authentication",
+        "question": "How do you securely handle user authentication and session management in modern SPAs communicating with microservices or third-party APIs?",
+        "probe": "Where do you store tokens, and how do you protect against CSRF and XSS attacks?",
+        "criteria": "Understanding of JWT vs HTTP-only Secure Cookies, CORS policies, OAuth2/OIDC flows, and token refresh mechanisms."
+      },
+      {
+        "phase": "Testing & Deployment",
+        "question": "Describe your automated testing strategy across the stack. How do you balance unit tests, integration tests, and end-to-end tests in your CI/CD pipeline?",
+        "probe": "How do you ensure staging environments don't cause flaky tests or mock out too much reality?",
+        "criteria": "Test pyramid balance, contract testing, CI/CD pipeline speed, and synthetic monitoring."
+      },
+      {
+        "phase": "Behavioral & Trade-offs",
+        "question": "Tell me about a time when product requirements forced you to compromise on technical debt to hit an aggressive deadline. How did you manage it?",
+        "probe": "How did you document that debt and prioritize refactoring it later with the product manager?",
+        "criteria": "Pragmatism, business empathy, communication with non-technical stakeholders, and proactive debt management."
+      }
+    ]
+  },
+  "Backend & Distributed Systems Engineer": {
+    "questions": [
+      {
+        "phase": "System Design",
+        "question": "How would you design a distributed, idempotent payment processing system that must guarantee at-least-once or exactly-once semantics without double-charging users?",
+        "probe": "What happens if a network partition occurs right after charging Stripe but before saving the database transaction?",
+        "criteria": "Idempotency keys, two-phase commits or saga patterns, distributed locks, outbox pattern, and reconciliation jobs."
+      },
+      {
+        "phase": "Concurrency & Data Consistency",
+        "question": "In a high-throughput distributed system, how do you handle concurrency, race conditions, and eventual consistency across multiple services?",
+        "probe": "When would you prefer optimistic locking versus pessimistic locking or an event-driven architecture?",
+        "criteria": "Database isolation levels, distributed consensus, deadlocks, and message queuing semantics."
+      },
+      {
+        "phase": "Reliability & Fault Tolerance",
+        "question": "What patterns do you implement to prevent cascading failures across downstream microservices during peak load or partial outages?",
+        "probe": "How do you calibrate circuit breakers, rate limiting, and exponential backoff with jitter?",
+        "criteria": "Resilience engineering, circuit breakers, bulkhead patterns, timeouts, and graceful degradation."
+      },
+      {
+        "phase": "Observability & Metrics",
+        "question": "Walk me through how you set up distributed tracing and telemetry. If a 99th-percentile latency alarm triggers at 2 AM, what is your triage methodology?",
+        "probe": "How do you distinguish between database latency, GC pauses, and upstream network saturation?",
+        "criteria": "Structured logging, OpenTelemetry, APM tools, SLOs/SLIs, and root cause analysis rigor."
+      },
+      {
+        "phase": "Ownership & Incident Review",
+        "question": "Tell me about the most severe production incident or outage you were involved in. What went wrong, how did you resolve it, and what was in your post-mortem?",
+        "probe": "What blameless cultural changes or architectural guardrails did you introduce as a result?",
+        "criteria": "Honesty, ownership, blameless post-mortem mindset, and concrete preventative actions."
+      }
+    ]
+  },
+  "Frontend & UI/UX Engineer": {
+    "questions": [
+      {
+        "phase": "Performance Optimization",
+        "question": "How do you diagnose and optimize Core Web Vitals (LCP, INP, CLS) in a heavy single-page application? Walk me through the tools and steps.",
+        "probe": "How do you minimize JavaScript bundle size and eliminate unnecessary component re-renders?",
+        "criteria": "Chrome DevTools profiling, code splitting, memoization, tree shaking, SSR/SSG vs CSR trade-offs."
+      },
+      {
+        "phase": "State Management Architecture",
+        "question": "How do you decide between local state, server cache (e.g. React Query/SWR), and global state (e.g. Redux/Zustand)?",
+        "probe": "How do you handle real-time WebSockets synchronization alongside regular REST or GraphQL caching?",
+        "criteria": "Single source of truth, caching layer abstraction, predictable state flow, and rendering efficiency."
+      },
+      {
+        "phase": "Component Design & Accessibility",
+        "question": "When building an enterprise design system component (such as an accessible autocomplete combobox), what accessibility (a11y) and keyboard navigation standards do you implement?",
+        "probe": "How do you test screen reader compatibility and ARIA live regions?",
+        "criteria": "WAI-ARIA guidelines, keyboard trapping, focus management, semantic HTML, and automated accessibility linters."
+      },
+      {
+        "phase": "Cross-Browser & Device Resilience",
+        "question": "How do you ensure consistent experience across varied devices, slow mobile networks, and older browsers without ballooning polyfills?",
+        "probe": "What is your approach to offline support and progressive enhancement?",
+        "criteria": "Responsive design, network throttling testing, service workers, and graceful degradation."
+      },
+      {
+        "phase": "Design Collaboration",
+        "question": "Describe a situation where a designer proposed an aesthetically beautiful animation or layout that was technically detrimental to performance or engineering bandwidth. How did you resolve it?",
+        "probe": "How did you propose an alternative that satisfied both the design vision and performance budgets?",
+        "criteria": "Empathy for design, diplomatic negotiation, data-backed reasoning, and collaborative problem-solving."
+      }
+    ]
+  },
+  "AI / Machine Learning Engineer": {
+    "questions": [
+      {
+        "phase": "LLM & RAG Architecture",
+        "question": "How do you design a production-grade Retrieval-Augmented Generation (RAG) system with low latency, high retrieval recall, and minimal hallucinations?",
+        "probe": "How do you evaluate and compare chunking strategies, embedding models, and hybrid search (keyword BM25 + dense vector)?",
+        "criteria": "Chunking heuristics, vector index tuning (HNSW), re-ranking (cross-encoders), context compression, and ground-truth evaluation (RAGAS)."
+      },
+      {
+        "phase": "Model Fine-Tuning & Evaluation",
+        "question": "When would you choose Prompt Engineering vs Few-Shot In-Context Learning vs Parameter-Efficient Fine-Tuning (LoRA / QLoRA) vs Full Fine-Tuning?",
+        "probe": "How do you systematically guard against catastrophic forgetting and measure model drift?",
+        "criteria": "Cost-benefit trade-offs, compute constraints, validation benchmarks, and continuous evaluation sets."
+      },
+      {
+        "phase": "MLOps & Latency Optimization",
+        "question": "How do you serve large foundation models or PyTorch deep learning models in production with sub-200ms latency budgets under high concurrent load?",
+        "probe": "What are the roles of KV caching, continuous batching (vLLM/TGI), and quantization (AWQ, INT8/INT4)?",
+        "criteria": "Model quantization, GPU utilization, speculative decoding, streaming responses, and inference scaling."
+      },
+      {
+        "phase": "Data Quality & Data Drift",
+        "question": "Garbage in, garbage out is especially true in ML. How do you curate, clean, and validate training data or golden evaluation benchmarks?",
+        "probe": "How do you detect feature drift or concept drift once the model is deployed in the wild?",
+        "criteria": "Data pipeline validation, anomaly detection, statistical divergence (PSI, KS-test), and human-in-the-loop auditing."
+      },
+      {
+        "phase": "Ethics, Safety & Guardrails",
+        "question": "How do you implement security guardrails against prompt injection, jailbreaks, PII leakage, and toxic outputs in an AI agent system?",
+        "probe": "What defense-in-depth layers do you place between the model output and actual external tool execution?",
+        "criteria": "Input sanitization, output classification, semantic firewall, least-privilege tool execution, and human confirmation triggers."
+      }
+    ]
+  },
+  "Behavioral & Leadership Screening": {
+    "questions": [
+      {
+        "phase": "Overcoming Technical Conflict",
+        "question": "Tell me about a time when you and another senior team member strongly disagreed on a technical architectural direction. How did you navigate the impasse?",
+        "probe": "What data or prototypes did you use, and how did you maintain a healthy working relationship afterward?",
+        "criteria": "STAR structure, emotional intelligence, objective data-driven decision making, and disagree-and-commit maturity."
+      },
+      {
+        "phase": "Ownership & Managing Failure",
+        "question": "Can you share a specific project where things didn't go according to plan, or an initiative you led that ultimately failed to meet its target?",
+        "probe": "What early signals did you miss, and how has that experience altered your current leadership or engineering habits?",
+        "criteria": "Accountability (no finger pointing), self-reflection, resilience, and concrete learning applied forward."
+      },
+      {
+        "phase": "Prioritization Under Ambiguity",
+        "question": "Describe a scenario where you were given a critical, high-impact goal with vague requirements and tight deadlines. How did you establish clarity and prioritize execution?",
+        "probe": "How did you manage stakeholder expectations when trade-offs were inevitable?",
+        "criteria": "Proactive scoping, stakeholder communication, breaking down ambiguity into milestones, and bias for action."
+      },
+      {
+        "phase": "Mentorship & Team Elevation",
+        "question": "How have you actively helped level up the engineers or colleagues around you? Give a concrete example of someone you coached or mentored.",
+        "probe": "What was their specific challenge, what coaching strategy did you apply, and what was their measurable outcome?",
+        "criteria": "Empathy, active listening, structured coaching, fostering psychological safety, and celebrating others' success."
+      },
+      {
+        "phase": "Customer & Business Impact",
+        "question": "Tell me about a feature or system you built where you had to push back on a proposed specification to better serve the end customer or business bottom line.",
+        "probe": "How did you frame your argument, and what was the quantifiable impact on user retention or cost savings?",
+        "criteria": "Customer obsession, business acumen, persuasive communication, and focus on measurable outcomes."
+      }
+    ]
+  },
+  "Product Manager (Technical)": {
+    "questions": [
+      {
+        "phase": "Product Strategy & Vision",
+        "question": "Imagine you are PM for an AI-powered developer tool. How would you define the 1-year product vision, North Star Metric, and key counter-metrics?",
+        "probe": "Why did you choose that specific North Star Metric, and how does it prevent gaming or user churn?",
+        "criteria": "Customer discovery, strategic differentiation, metric clarity (North Star + guardrails), and market intuition."
+      },
+      {
+        "phase": "Execution & Prioritization",
+        "question": "You have 5 high-priority requests from Sales, 3 technical debt refactors from Engineering, and a critical bug impacting 2% of users. How do you prioritize what gets built in the next sprint?",
+        "probe": "What framework (RICE, Kano, Value vs Effort) do you use to communicate the rationale transparently to frustrated stakeholders?",
+        "criteria": "Framework application, transparency, empathy for engineering health, and objective decision-making."
+      },
+      {
+        "phase": "Engineering Partnership",
+        "question": "Tell me about a time when your engineering team told you an essential feature was impossible to deliver in the required timeframe. How did you work together to find a solution?",
+        "probe": "How did you descope or re-architect the user story to deliver 80% of the value with 20% of the complexity?",
+        "criteria": "Technical fluency, collaborative problem-solving, respect for engineering estimation, and MVP scoping."
+      },
+      {
+        "phase": "Data & Experimentation",
+        "question": "Walk me through an A/B test or experimentation cycle you ran. What was your hypothesis, sample size calculation, and how did you interpret ambiguous or conflicting results?",
+        "probe": "If an experiment showed increased conversion but decreased 30-day retention, what action would you take?",
+        "criteria": "Statistical literacy, hypothesis formulation, holistic metric evaluation, and qualitative user research follow-up."
+      },
+      {
+        "phase": "Leadership Without Authority",
+        "question": "How do you align a cross-functional team of engineers, designers, sales, and legal when people have conflicting incentives and no one reports to you?",
+        "probe": "Give a real example where you had to influence a skeptical executive to greenlight your initiative.",
+        "criteria": "Influence without authority, building trust, aligning incentives around shared goals, and executive presence."
+      }
+    ]
+  },
+  "Data Scientist & Analyst": {
+    "questions": [
+      {
+        "phase": "Statistical Analysis & Experimentation",
+        "question": "How do you design an A/B test when network effects or spillover are present (e.g., social feeds or marketplace dispatch)?",
+        "probe": "How do you control for Type I and Type II errors, and when do you use cluster randomization or synthetic control methods?",
+        "criteria": "Experimental design rigor, sample size power calculations, understanding of bias and interference."
+      },
+      {
+        "phase": "Machine Learning in Production",
+        "question": "Explain how you evaluate classification models when dealing with severe class imbalance (e.g., 99.8% negative class in fraud detection). Why is accuracy misleading?",
+        "probe": "How do you choose between PR-AUC, ROC-AUC, F-beta score, and custom cost matrices aligned to business loss?",
+        "criteria": "Metric selection tailored to business cost, threshold tuning, precision-recall trade-offs, and cost-benefit optimization."
+      },
+      {
+        "phase": "Data Pipelines & Feature Engineering",
+        "question": "What is your methodology for building resilient feature stores and preventing data leakage between training and inference pipelines?",
+        "probe": "How do you handle temporal point-in-time joins when backtesting predictive models on historical time-series data?",
+        "criteria": "Point-in-time correctness, data governance, feature engineering pipelines, and reproducibility."
+      },
+      {
+        "phase": "Business Storytelling & Impact",
+        "question": "Tell me about a complex statistical finding you presented to non-technical C-suite executives. How did you translate p-values and confidence intervals into an actionable business recommendation?",
+        "probe": "What resistance did you encounter, and how did your insights alter company strategy?",
+        "criteria": "Clear communication, data visualization, executive translation, and focus on ROI/action."
+      }
+    ]
+  },
+  "DevOps & Cloud SRE": {
+    "questions": [
+      {
+        "phase": "Infrastructure as Code & CI/CD",
+        "question": "How do you structure Terraform and GitOps pipelines (e.g., ArgoCD) for multi-environment, multi-region Kubernetes deployments to ensure zero drift and safe rollbacks?",
+        "probe": "What is your blast-radius containment strategy for canary deployments and database schema migrations?",
+        "criteria": "GitOps principles, state locking, module reusability, progressive delivery (canary/blue-green), and rollback automation."
+      },
+      {
+        "phase": "Reliability & Incident Management",
+        "question": "How do you define Service Level Objectives (SLOs) and Error Budgets for a mission-critical service? When the error budget is depleted, what operational policies trigger?",
+        "probe": "How do you balance developer release velocity against system reliability and SRE sign-off?",
+        "criteria": "SRE principles, SLO/SLI definition, alerting on burn rate rather than static thresholds, and governance policies."
+      },
+      {
+        "phase": "Container Orchestration & Scaling",
+        "question": "Describe how you optimize Kubernetes cluster autoscaling (HPA, VPA, Karpenter/Cluster Autoscaler) to handle sudden 10x traffic spikes without pod pending delays or high idle cloud costs.",
+        "probe": "How do you configure pod disruption budgets, resource requests/limits, and node affinity for high availability?",
+        "criteria": "Kubernetes internals, resource scheduling, cost optimization vs availability, and graceful termination."
+      },
+      {
+        "phase": "Security & Secret Management",
+        "question": "How do you architect zero-trust security in the cloud, including mutual TLS (mTLS), IAM least privilege, container image scanning, and dynamic secret rotation?",
+        "probe": "How do you ensure developers never commit secrets or hardcode credentials anywhere in the build pipeline?",
+        "criteria": "Zero-trust architecture, HashiCorp Vault / KMS integrations, workload identity, and shift-left security tooling."
+      }
+    ]
+  },
+  "Fresher / Graduate Software Engineer": {
+    "questions": [
+      {
+        "phase": "Data Structures & Problem Solving",
+        "question": "Suppose you are given an array of integers and need to find two numbers that sum up to a specific target value. Walk me through the brute-force approach first, and then explain how you would optimize it to O(n) time using a Hash Map.",
+        "probe": "What are the time and space complexity differences between using a Hash Map ($O(n)$ space) versus sorting the array first and using the two-pointer technique ($O(1)$ extra space)?",
+        "criteria": "Accurate Big-O time and space complexity analysis, understanding of Hash Map O(1) average lookup, and awareness of two-pointer alternatives."
+      },
+      {
+        "phase": "Object-Oriented Programming (OOP)",
+        "question": "Can you explain the four core pillars of Object-Oriented Programming (Encapsulation, Abstraction, Inheritance, and Polymorphism) using a real-world software design example?",
+        "probe": "What is the difference between compile-time polymorphism (method overloading) and run-time polymorphism (method overriding)?",
+        "criteria": "Conceptual clarity beyond textbook definitions, real-world analogies, and concrete code syntax understanding."
+      },
+      {
+        "phase": "Database & SQL Fundamentals",
+        "question": "In relational databases, what is the fundamental difference between an INNER JOIN and a LEFT JOIN? Give an example where you would use each, and explain why we add indexes to database columns.",
+        "probe": "What happens under the hood when a database index is used, and what is the trade-off of adding too many indexes to a table?",
+        "criteria": "Relational database JOIN logic, primary vs foreign keys, B-Tree index fundamentals, and read vs write performance trade-offs."
+      },
+      {
+        "phase": "Web & Networking Fundamentals",
+        "question": "What happens under the hood from the moment you type a URL like 'https://google.com' into your browser and press Enter until the page is rendered? Walk through DNS, TCP handshake, and browser rendering.",
+        "probe": "What is the difference between HTTP and HTTPS, and how does the SSL/TLS handshake ensure security?",
+        "criteria": "High-level understanding of DNS resolution, TCP handshake, HTTP request/response cycle, and browser DOM rendering."
+      },
+      {
+        "phase": "Technical Problem Solving & Debugging",
+        "question": "Can you walk me through the most challenging technical bug or issue you encountered in a personal or academic project? How did you isolate the root cause, what tools or logs did you use, and how did you resolve it?",
+        "probe": "What preventative measures or tests did you add afterwards to ensure that specific failure would never occur again?",
+        "criteria": "Systematic debugging mindset, ability to read stack traces/logs, ownership, and testing rigor."
+      }
+    ]
+  }
+}
